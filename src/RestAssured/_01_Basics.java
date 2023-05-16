@@ -3,6 +3,10 @@ package RestAssured;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import Files.Payload;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -11,9 +15,11 @@ public class _01_Basics {
 
 	public static String placeID = "";
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		addPlace();
+		
+		//addPlaceFromFileJSON();
 
 		updatePlace();
 		
@@ -43,6 +49,30 @@ public class _01_Basics {
 		placeID = json.getString("place_id");
 		
 		System.out.println(placeID);
+		
+	}
+	
+	public static void addPlaceFromFileJSON() throws IOException {
+		
+		RestAssured.baseURI = "https://rahulshettyacademy.com";
+		
+		String respone = given().log().all()
+							    .queryParam("key", "qaclick123")
+							    .header("Content-Type", "application/json")
+							    .body(new String(Files.readAllBytes(Paths.get("E:\\SeleniumProjects\\addPlace.json"))))
+						 .when().post("maps/api/place/add/json")
+						 .then().log().all()
+							    .assertThat().statusCode(200)
+										     .body("scope", equalTo("APP"))
+										     .header("server", "Apache/2.4.41 (Ubuntu)")
+							    .extract().response().asString();
+						
+		System.out.println(respone);
+		
+		JsonPath json = new JsonPath(respone);
+		placeID = json.getString("place_id");
+		
+		System.out.println("RESULT:" + placeID);
 		
 	}
 	
