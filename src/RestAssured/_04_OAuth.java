@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
+import POJO.GetCourse;
+import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 
 public class _04_OAuth {
@@ -48,6 +50,10 @@ public class _04_OAuth {
 		
 		System.out.println(response);
 		
+		//POJO
+		GetCourse gc = given().queryParam("access_token", access_token_string).expect().defaultParser(Parser.JSON).when().get("https://rahulshettyacademy.com/getCourse.php").as(GetCourse.class);
+		
+		gc.getCourses().getApi().get(1).getCourseTitle();
 	}
 	
 }
