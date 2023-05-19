@@ -32,7 +32,7 @@ public class _01_Basics {
 		
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
 		
-		String respone = given().log().all()
+		String response = given().log().all()
 							    .queryParam("key", "qaclick123")
 							    .header("Content-Type", "application/json")
 							    .body(Payload.addPlace())
@@ -43,9 +43,9 @@ public class _01_Basics {
 										     .header("server", "Apache/2.4.41 (Ubuntu)")
 							    .extract().response().asString();
 						
-		System.out.println(respone);
+		System.out.println(response);
 		
-		JsonPath json = new JsonPath(respone);
+		JsonPath json = new JsonPath(response);
 		placeID = json.getString("place_id");
 		
 		System.out.println(placeID);
@@ -56,7 +56,7 @@ public class _01_Basics {
 		
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
 		
-		String respone = given().log().all()
+		String response = given().log().all()
 							    .queryParam("key", "qaclick123")
 							    .header("Content-Type", "application/json")
 							    .body(new String(Files.readAllBytes(Paths.get("E:\\SeleniumProjects\\addPlace.json"))))
@@ -67,9 +67,9 @@ public class _01_Basics {
 										     .header("server", "Apache/2.4.41 (Ubuntu)")
 							    .extract().response().asString();
 						
-		System.out.println(respone);
+		System.out.println(response);
 		
-		JsonPath json = new JsonPath(respone);
+		JsonPath json = new JsonPath(response);
 		placeID = json.getString("place_id");
 		
 		System.out.println("RESULT:" + placeID);

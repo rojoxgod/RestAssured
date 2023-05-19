@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-import POJO.GetCourse;
+import POJO_deserialization.GetCourse;
 import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 
